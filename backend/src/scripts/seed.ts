@@ -48,7 +48,7 @@ const seed = async () => {
             r.Range_Km,
             r.Efficiency_WhKm,
             r.FastCharge_KmH === '-' ? null : r.FastCharge_KmH,
-            r.RapidCharge === 'Yes' ? 1 : 0,
+            r.RapidCharge,
             r.PowerTrain,
             r.PlugType,
             r.BodyStyle,

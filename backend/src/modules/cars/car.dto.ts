@@ -9,7 +9,7 @@ export interface CarDTO {
   range_km: number;
   efficiency_whkm: number;
   fast_charge_kmh: number;
-  rapid_charge: boolean;
+  rapid_charge: string;
   power_train: string;
   plug_type: string;
   body_style: string;

@@ -8,22 +8,22 @@ const router = Router();
 
 // GET /api/cars?brand_like=BMW&rangeKm_gt=350
 router.post(
-    '/',
-    asyncWrapper(async (req: Request, res: Response) => {
-      try {
-        validateSearchRequest(req.body);               
-      } catch (err: unknown) {
-        const error = err as Error;
-        return res.status(400).json({ error: error.message });
-      }
-      const { startRow, endRow, filterModel, sortModel }: SearchRequest = req.body;      
-      const result = await service.searchCars(filterModel, sortModel, startRow, endRow);
-      res.json(result);
-    })
-  );
-  
+  '/',
+  asyncWrapper(async (req: Request, res: Response) => {
+    try {
+      validateSearchRequest(req.body);
+    } catch (err: unknown) {
+      const error = err as Error;
+      return res.status(400).json({ error: error.message });
+    }
+    const { startRow, endRow, filterModel, sortModel }: SearchRequest = req.body;
+    const result = await service.searchCars(filterModel, sortModel, startRow, endRow);
+    res.json(result);
+  })
+);
+
 // GET /api/cars/meta
-router.get('/meta', asyncWrapper(async (_req: Request, res: Response) => {  
+router.get('/meta', asyncWrapper(async (_req: Request, res: Response) => {
   const meta = await service.getMeta();
   res.json(meta);
 }));
@@ -37,7 +37,7 @@ router.get(
   }),
 );
 
-// DELETE /api/cars/:id  (for "Delete" action in AG-Grid)
+// DELETE /api/cars/:id 
 router.delete(
   '/:id',
   asyncWrapper(async (req: Request, res: Response) => {

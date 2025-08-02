@@ -1,0 +1,12 @@
+{
+    "extends": "@tsconfig/node23/tsconfig.json",
+    "compilerOptions": {
+      "rootDir": "src",      /* point at your TS source */
+      "outDir": "dist",      /* where compiled JS goes */
+      "strict": true,        /* enable all strict checks */
+      "sourceMap": true      /* emit .map files for debugging */
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+  }
+  

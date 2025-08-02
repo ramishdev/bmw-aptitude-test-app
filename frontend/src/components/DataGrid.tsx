@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { type ColDef, type GridReadyEvent, type IDatasource, type FirstDataRenderedEvent, type ColumnState, type SortModelItem } from 'ag-grid-community';
+import { type ColDef, type GridReadyEvent, type IDatasource, type ColumnState, type SortModelItem } from 'ag-grid-community';
 import { Box, Button, debounce, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { filterCars, deleteCar, getMeta } from '../api/cars';
@@ -28,9 +28,6 @@ const DataGrid: React.FC = () => {
     return '';
   });
   const quickFilterRef = React.useRef(quickFilter);
-
-
-  const boolFormatter = ({ value }: { value: boolean }) => (value ? 'Yes' : 'No');
 
   const saveState = useCallback((key: string, value: unknown) => {
     try {
@@ -68,7 +65,6 @@ const DataGrid: React.FC = () => {
           flex: 1,
           minWidth: 120,
           hide: c.field === 'id',
-          ...(c.type === 'boolean' && { valueFormatter: boolFormatter }),
           ...(c.type === 'number' && {
             valueFormatter: (params: { value: number }) => {
               if (c.field.includes('euro')) {
@@ -138,6 +134,7 @@ const DataGrid: React.FC = () => {
           filterModel: params.filterModel ?? {},
         };
         if (quickFilterRef.current) {
+          console.log('quickFilterRef.current', quickFilterRef.current, typeof quickFilterRef.current);
           body.filterModel.global = { type: 'contains', filter: quickFilterRef.current };
         }
         const res = await filterCars(body)
@@ -151,18 +148,11 @@ const DataGrid: React.FC = () => {
   const onGridReady = useCallback(
     (event: GridReadyEvent) => {
       const api = event.api;
-      api.setGridOption('datasource', buildDataSource());
-    },
-    [buildDataSource]
-  );
-
-  const onFirstDataRendered = useCallback(
-    (event: FirstDataRenderedEvent) => {
-      const api = event.api;
       const savedFilterModel = loadState(STORAGE_KEYS.FILTER_MODEL, {});
       if (Object.keys(savedFilterModel as Record<string, unknown>).length > 0) {
         api.setFilterModel(savedFilterModel as Record<string, unknown>);
       }
+
       const savedSortModel = loadState(STORAGE_KEYS.SORT_MODEL, []) as SortModelItem[];
       if (savedSortModel.length > 0) {
         api.applyColumnState({
@@ -173,8 +163,9 @@ const DataGrid: React.FC = () => {
           defaultState: { sort: null }
         });
       }
+      api.setGridOption('datasource', buildDataSource());
     },
-    [loadState]
+    [buildDataSource, loadState]
   );
 
   const onFilterChanged = useCallback(() => {
@@ -246,14 +237,6 @@ const DataGrid: React.FC = () => {
             sx={{
               width: { xs: '100%', md: 350 },
               minWidth: { xs: 'auto', md: 350 },
-              '& .MuiOutlinedInput-root': {
-                borderRadius: 2,
-                '&:hover': {
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#1976d2',
-                  },
-                },
-              },
             }}
             slotProps={{
               input: {
@@ -323,7 +306,6 @@ const DataGrid: React.FC = () => {
             cacheBlockSize={100}
             maxBlocksInCache={10}
             onGridReady={onGridReady}
-            onFirstDataRendered={onFirstDataRendered}
             onFilterChanged={onFilterChanged}
             onSortChanged={onSortChanged}
             rowHeight={50}

@@ -8,6 +8,6 @@ export const searchCars = (
   end: number
 ): Promise<SearchResponse> => repo.search(filter, sort, start, end);
 
-export const getCar   = (id: number) => repo.findById(id);
-export const deleteCar= (id: number) => repo.remove(id);
+export const getCar = (id: number) => repo.findById(id);
+export const deleteCar = (id: number) => repo.remove(id);
 export const getMeta = () => repo.getMeta();

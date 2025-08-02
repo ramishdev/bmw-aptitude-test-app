@@ -9,13 +9,13 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div style={{height:'400px'}}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<DataGrid />} />
-          <Route path="/cars/:id" element={<CarDetail />} />
-        </Routes>
-      </BrowserRouter>
+      <div style={{ height: '400px' }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<DataGrid />} />
+            <Route path="/cars/:id" element={<CarDetail />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </ThemeProvider>
   );

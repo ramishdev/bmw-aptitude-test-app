@@ -127,7 +127,7 @@ interface Car {
   accel_sec: number;       // 0-100 acceleration time
   efficiency_whkm: number; // Energy efficiency
   fast_charge_kmh: number; // Fast charging speed
-  rapid_charge: boolean;   // Supports rapid charging
+  rapid_charge: string;   // Supports rapid charging
   power_train: string;     // e.g., "AWD"
   plug_type: string;       // e.g., "Type 2"
   body_style: string;      // e.g., "Sedan"
@@ -148,7 +148,7 @@ interface Car {
 
 ### Limitations:
 - **Backend**: Currently specific to cars table (would need modifications for other datasets)
-- **Detail Page**: Generic field rendering but specific to car data structure
+- **Detail Page**: Generic field rendering but css specific to car data structure
 
 ## Environment Variables
 

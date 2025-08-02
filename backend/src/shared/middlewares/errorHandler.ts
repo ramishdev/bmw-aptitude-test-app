@@ -11,15 +11,13 @@ export const errorHandler = (
     stack: err.stack,
     name: err.name
   });
-  
-  // Send appropriate error response
   if (err.name === 'TypeError') {
-    res.status(400).json({ 
+    res.status(400).json({
       message: 'Invalid request data',
-      error: err.message 
+      error: err.message
     });
   } else {
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Internal server error',
       error: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
     });

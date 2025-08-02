@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS cars (
   range_km          INT,
   efficiency_whkm   INT,
   fast_charge_kmh   INT,
-  rapid_charge      BOOLEAN,
+  rapid_charge      VARCHAR(3),
   power_train       VARCHAR(10),
   plug_type         VARCHAR(20),
   body_style        VARCHAR(20),

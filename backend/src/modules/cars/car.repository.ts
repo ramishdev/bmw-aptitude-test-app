@@ -5,7 +5,7 @@ import { toDTO } from './car.mapper';
 const buildWhereClause = (filterModel: FilterModel) => {
   let sql = '';
   const params: QueryParams = {};
-  
+
   if (filterModel?.global) {
     const g = filterModel.global;
     if (g.type === 'contains') {
@@ -29,11 +29,11 @@ const buildWhereClause = (filterModel: FilterModel) => {
       params.global = `%${g.filter}%`;
     }
   }
-  
+
   filterModel && Object.entries(filterModel).forEach(([col, f]) => {
     if (col === 'global') return;
 
-    const colSql = snakeCase(col);                
+    const colSql = snakeCase(col);
     const key = col.replace(/[^a-zA-Z0-9]/g, '');
 
     // Handle complex conditions with AND/OR operators
@@ -42,15 +42,15 @@ const buildWhereClause = (filterModel: FilterModel) => {
         const conditionKey = `${key}_${index}`;
         const conditionSql = snakeCase(col);
         const isDateField = condition.filterType === 'date';
-        
+
         if (isDateField) {
           condition.dateFrom = condition.dateFrom ? condition.dateFrom?.split('T')[0] : condition.dateFrom;
           condition.dateTo = condition.dateTo ? condition.dateTo?.split('T')[0] : condition.dateTo;
         }
-        
+
         return buildConditionSql(condition, conditionSql, conditionKey, params);
       });
-      
+
       const operator = f.operator || 'AND';
       sql += ` AND (${conditions.join(` ${operator} `)})`;
     } else {
@@ -59,29 +59,29 @@ const buildWhereClause = (filterModel: FilterModel) => {
         f.dateFrom = f.dateFrom ? f.dateFrom?.split('T')[0] : f.dateFrom;
         f.dateTo = f.dateTo ? f.dateTo?.split('T')[0] : f.dateTo;
       }
-      
+
       const conditionSql = buildConditionSql(f, colSql, key, params);
       if (conditionSql) {
         sql += ` AND ${conditionSql}`;
       }
     }
   });
-  
+
   return { sql, params };
 };
 
 const buildConditionSql = (f: any, colSql: string, key: string, params: QueryParams): string => {
   const isDateField = f.filterType === 'date';
-  
+
   switch (f.type) {
     case 'contains':
       params[key] = `%${String(f.filter).toLowerCase()}%`;
       return `LOWER(${colSql}) LIKE :${key}`;
-      
+
     case 'notContains':
       params[key] = `%${String(f.filter).toLowerCase()}%`;
       return `LOWER(${colSql}) NOT LIKE :${key}`;
-      
+
     case 'equals':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -90,7 +90,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} = :${key}`;
       }
-      
+
     case 'notEqual':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -99,7 +99,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} != :${key}`;
       }
-      
+
     case 'startsWith':
       if (isDateField) {
         params[key] = `${String(f.dateFrom)}%`;
@@ -108,7 +108,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = `${String(f.filter).toLowerCase()}%`;
         return `LOWER(${colSql}) LIKE :${key}`;
       }
-      
+
     case 'endsWith':
       if (isDateField) {
         params[key] = `%${String(f.dateFrom)}`;
@@ -117,13 +117,13 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = `%${String(f.filter).toLowerCase()}`;
         return `LOWER(${colSql}) LIKE :${key}`;
       }
-      
+
     case 'blank':
       return `(${colSql} IS NULL)`;
-      
+
     case 'notBlank':
       return `${colSql} IS NOT NULL`;
-      
+
     case 'lessThan':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -132,7 +132,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} < :${key}`;
       }
-      
+
     case 'lessThanOrEqual':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -141,7 +141,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} <= :${key}`;
       }
-      
+
     case 'greaterThan':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -150,7 +150,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} > :${key}`;
       }
-      
+
     case 'greaterThanOrEqual':
       if (isDateField) {
         params[key] = f.dateFrom;
@@ -159,7 +159,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[key] = f.filter;
         return `${colSql} >= :${key}`;
       }
-      
+
     case 'inRange':
       if (isDateField) {
         params[`${key}0`] = f.dateFrom;
@@ -170,7 +170,7 @@ const buildConditionSql = (f: any, colSql: string, key: string, params: QueryPar
         params[`${key}1`] = f.filterTo;
         return `${colSql} BETWEEN :${key}0 AND :${key}1`;
       }
-      
+
     default:
       console.warn(`Unknown filter type: ${f.type} for column ${colSql}`);
       return '';
@@ -200,9 +200,9 @@ export const search = async (filter: FilterModel, sort: SortModel[], start: numb
   const limit = end - start;
   const [rows] = await pool.execute<CarRow[]>(
     `SELECT * FROM cars WHERE 1=1 ${whereSql} ${orderSql} LIMIT ${Number(start)}, ${Number(limit)}`,
-    params   
+    params
   );
-  
+
   return {
     rows: rows.map(toDTO),
     lastRow: total
@@ -224,8 +224,7 @@ export const getMeta = async () => {
 
   return rows.map(c => ({
     field: c.Field,
-    type: c.Type === 'tinyint(1)' ? 'boolean' :
-      c.Type.startsWith('int') || c.Type.startsWith('decimal') ? 'number' :
-        c.Type.startsWith('date') ? 'date' : 'text'
+    type: c.Type.startsWith('int') || c.Type.startsWith('decimal') ? 'number' :
+      c.Type.startsWith('date') ? 'date' : 'text'
   }));
 };

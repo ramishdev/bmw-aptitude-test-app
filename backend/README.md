@@ -32,6 +32,8 @@ bmw-datagrid-backend/
 │   │   ├── car.repository.ts  # SQL + pagination logic
 │   │   ├── car.service.ts     # Business layer
 │   │   └── car.routes.ts      # HTTP routes
+|   ├── scripts
+|   |   └── seed.ts            # Populate DB
 │   ├── shared
 │   │   ├── utils/
 │   │   │   ├── asyncWrapper.ts

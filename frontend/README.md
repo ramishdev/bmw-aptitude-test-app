@@ -64,10 +64,10 @@ frontend/
 ### DataGrid Component
 The main table that displays all the data. It's designed to be generic:
 - **Dynamic Columns**: Automatically generates columns from API metadata
-- **Infinite Scrolling**: Loads data as you scroll (no more waiting for everything to load)
+- **Infinite Scrolling**: Loads data as you scroll
 - **Smart Search**: Type in the search box and it finds entity across all fields
 - **Column Filters**: Each column has its own filter for precise searching
-- **Smooth Sorting**: Click any column header to sort, with nice animations
+- **Smooth Sorting**: Click any column header to sort
 - **Responsive**: Adapts to your screen size automatically
 
 ### Performance Optimizations
@@ -82,7 +82,6 @@ The DataGrid automatically saves and restores your session state using browser l
 - **Quick Search**: Your search terms are remembered
 - **Column Filters**: All filter conditions are preserved
 - **Column Sorting**: Sort order and direction are maintained
-- **Column Layout**: Column visibility, order, and width are saved
 - **Reset Functionality**: "Reset All" button clears everything
 
 #### **How It Works:**

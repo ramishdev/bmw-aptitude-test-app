@@ -109,12 +109,12 @@ Body (AG-Grid format):
 Response:
 ```json
 {
-  "rows": [ /* …array of CarDTO… */ ],
-  "lastRow": 42
+  "rows": [ /* Data */ ],
+  "lastRow": /* No of items retrieved */
 }
 ```
 ### 2. Fetch Column Names
-**`GET /api/cars/:id`**
+**`GET /api/cars/meta`**
 
 ### 2. Fetch single car (detail page)
 **`GET /api/cars/:id`**

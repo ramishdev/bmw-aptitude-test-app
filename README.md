@@ -1,10 +1,10 @@
 # BMW IT Internship - Electric Car Database Application
 
-A full-stack web application developed for the BMW IT Internship aptitude test. This project demonstrates modern web development skills using React, TypeScript, Node.js, and MySQL.
+A full-stack web application developed for the BMW IT Internship aptitude test. This project demonstrates web development skills using React, TypeScript, Node.js, and MySQL.
 
-## 🚀 Project Overview
+## Project Overview
 
-This application provides a comprehensive interface for managing and exploring electric vehicle data with advanced features like real-time search, filtering, and detailed vehicle information display.
+This application provides a comprehensive interface for managing and exploring electric vehicle data using AG Grid with advanced features like real-time search, filtering, and detailed vehicle information display.
 
 ### Key Features
 - **Interactive Data Grid**: Powered by AG-Grid with server-side operations
@@ -14,7 +14,7 @@ This application provides a comprehensive interface for managing and exploring e
 - **Responsive Design**: Mobile and desktop compatible
 - **CRUD Operations**: Complete data management capabilities
 
-## 📁 Project Structure
+## Project Structure
 
 This project consists of two main components:
 
@@ -27,7 +27,7 @@ bmw-aptitude-test-app/
 └── README.md               # This file
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - **Node.js**: v18 or higher
@@ -38,7 +38,7 @@ bmw-aptitude-test-app/
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/ramishdev/bmw-aptitude-test-app
    cd bmw-aptitude-test-app
    ```
 
@@ -54,26 +54,19 @@ bmw-aptitude-test-app/
    # See frontend/README.md for detailed setup instructions
    ```
 
-## 📖 Documentation
+## Documentation
 
 - **[Frontend README](frontend/README.md)** - React application details, setup, and features
 - **[Backend README](backend/README.md)** - Node.js API details, database setup, and endpoints
 
-## 🎯 BMW Aptitude Test Requirements
+## BMW Aptitude Test Requirements
 
-### ✅ Completed Requirements
+### Completed Requirements
 1. **Generic DataGrid Component** - Works with any column structure
 2. **Search Feature** - Backend API integration with global search
 3. **Filtering** - All required filter types (contains, equals, startsWith, etc.)
 4. **Backend Service** - Express.js APIs for data operations
 5. **MySQL Database** - Proper setup with CSV seeding
-
-### 🎯 Technical Excellence
-- **Full-Stack Development**: React frontend + Node.js backend
-- **Modern Technologies**: TypeScript, Material-UI, AG-Grid
-- **Performance Optimization**: Server-side pagination and filtering
-- **Code Quality**: TypeScript, best practices
-- **Documentation**: Comprehensive README files
 
 ## Contact & Submission
 

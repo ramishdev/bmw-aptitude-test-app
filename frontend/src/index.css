@@ -1,0 +1,8 @@
+.fadeIn {
+    animation: fadeInGrid 0.3s ease-in;
+  }
+  
+  @keyframes fadeInGrid {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }

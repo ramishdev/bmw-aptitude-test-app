@@ -1,10 +1,10 @@
-# BMW Electric Car Database - Frontend
+# BMW IT Internship – Frontend
 
-A React application for browsing and managing electric vehicle data. Built with TypeScript and Material-UI, featuring a generic DataGrid component that can adapt to different data structures.
+A React application for BMW IT Internship. Built with TypeScript and Material-UI, featuring a generic DataGrid component that can adapt to different data structures.
 
 ## What it does
 
-This app provides a comprehensive interface for exploring electric car data with features like:
+This app provides a comprehensive interface for exploring data with features like:
 - **Search & Filter**: Find item by any feature
 - **Sort & Organize**: Sort by any column with smooth animations
 - **View Details**: Click on any car to see full specifications
@@ -52,7 +52,8 @@ frontend/
 ├── src/
 │   ├── components/
 │   │   ├── DataGrid.tsx      # The main data table
-│   │   └── CarDetail.tsx     # Individual car page
+│   │   ├── CarDetail.tsx     # Individual car page
+|   |   └── DetailView.tsx    
 │   ├── api/
 │   │   └── cars.tsx          # API calls and data types
 │   └── App.tsx               # Main app component

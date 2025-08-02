@@ -1,13 +1,13 @@
-# BMW IT Internship - Electric Car Database Application
+# BMW IT Internship - Aptitude Test
 
 A full-stack web application developed for the BMW IT Internship aptitude test. This project demonstrates web development skills using React, TypeScript, Node.js, and MySQL.
 
 ## Project Overview
 
-This application provides a comprehensive interface for managing and exploring electric vehicle data using AG Grid with advanced features like real-time search, filtering, and detailed vehicle information display.
+This application create a generic AG Grid with advanced features like real-time search, filtering, and sorting.
 
 ### Key Features
-- **Interactive Data Grid**: Powered by AG-Grid with server-side operations
+- **Generic Data Grid**:  Handle any structural data with N columns and display it.
 - **Real-time Search**: Global search across all vehicle fields
 - **Advanced Filtering**: Column-specific filters with multiple operators
 - **Detailed Views**: Comprehensive vehicle specification pages

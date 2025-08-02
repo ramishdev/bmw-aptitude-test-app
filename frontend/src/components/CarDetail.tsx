@@ -70,7 +70,7 @@ const CarDetail: React.FC = () => {
   return (
     <DetailView
       data={car}
-      title={`${car.brand} ${car.model}`}
+      title={car.brand && car.model ? `${car.brand} ${car.model}` : "Detail"}
       subtitle="Electric Vehicle Details"
       fieldConfigs={carFieldConfigs}
       backUrl="/"

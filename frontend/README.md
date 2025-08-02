@@ -5,7 +5,7 @@ A React application for browsing and managing electric vehicle data. Built with 
 ## What it does
 
 This app provides a comprehensive interface for exploring electric car data with features like:
-- **Search & Filter**: Find cars by brand, model, or any feature
+- **Search & Filter**: Find item by any feature
 - **Sort & Organize**: Sort by any column with smooth animations
 - **View Details**: Click on any car to see full specifications
 
@@ -61,16 +61,16 @@ frontend/
 ## Key Features
 
 ### DataGrid Component
-The main table that displays all the cars. It's designed to be generic:
+The main table that displays all the data. It's designed to be generic:
 - **Dynamic Columns**: Automatically generates columns from API metadata
 - **Infinite Scrolling**: Loads data as you scroll (no more waiting for everything to load)
-- **Smart Search**: Type in the search box and it finds cars across all fields
+- **Smart Search**: Type in the search box and it finds entity across all fields
 - **Column Filters**: Each column has its own filter for precise searching
 - **Smooth Sorting**: Click any column header to sort, with nice animations
 - **Responsive**: Adapts to your screen size automatically
 
 ### Performance Optimizations
-- **Virtual Scrolling**: Only renders the rows you can see (handles thousands of cars smoothly)
+- **Virtual Scrolling**: Only renders the rows you can see (handles thousands of data smoothly)
 - **Debounced Search**: Waits 500ms after you stop typing before searching (prevents too many API calls)
 - **Smart Caching**: Remembers data you've already loaded
 
@@ -148,7 +148,7 @@ interface Car {
 
 ### Limitations:
 - **Backend**: Currently specific to cars table (would need modifications for other datasets)
-- **Detail Page**: Generic field rendering but css specific to car data structure
+- **Detail Page**: Generic field rendering but some info and css specific to car data structure
 
 ## Environment Variables
 
@@ -165,7 +165,7 @@ The application requires the following environment variables:
 ## Backend Integration
 
 The frontend connects to a Node.js/Express backend that provides:
-- RESTful API endpoints for cars data
+- RESTful API endpoints for data
 - Pagination for large datasets
 - Server-side filtering and sorting
 - Proper error handling

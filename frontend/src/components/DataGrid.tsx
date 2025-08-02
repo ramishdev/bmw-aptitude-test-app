@@ -134,7 +134,6 @@ const DataGrid: React.FC = () => {
           filterModel: params.filterModel ?? {},
         };
         if (quickFilterRef.current) {
-          console.log('quickFilterRef.current', quickFilterRef.current, typeof quickFilterRef.current);
           body.filterModel.global = { type: 'contains', filter: quickFilterRef.current };
         }
         const res = await filterCars(body)

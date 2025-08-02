@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { type ColDef, type GridReadyEvent, type IDatasource } from 'ag-grid-community';
+import { type ColDef, type GridReadyEvent, type IDatasource, type FirstDataRenderedEvent, type ColumnState, type SortModelItem } from 'ag-grid-community';
 import { Box, Button, debounce, TextField, Typography, InputAdornment } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { filterCars, deleteCar, getMeta } from '../api/cars';
@@ -32,7 +32,7 @@ const DataGrid: React.FC = () => {
 
   const boolFormatter = ({ value }: { value: boolean }) => (value ? 'Yes' : 'No');
 
-  const saveState = useCallback((key: string, value: any) => {
+  const saveState = useCallback((key: string, value: unknown) => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
@@ -40,7 +40,7 @@ const DataGrid: React.FC = () => {
     }
   }, []);
 
-  const loadState = useCallback((key: string, defaultValue: any = null) => {
+  const loadState = useCallback((key: string, defaultValue: unknown = null) => {
     try {
       const stored = localStorage.getItem(key);
       return stored ? JSON.parse(stored) : defaultValue;
@@ -130,8 +130,6 @@ const DataGrid: React.FC = () => {
 
   const buildDataSource = useCallback((): IDatasource => ({
     getRows: async (params) => {
-      console.log(params.filterModel);
-
       try {
         const body = {
           startRow: params.startRow,
@@ -143,8 +141,6 @@ const DataGrid: React.FC = () => {
           body.filterModel.global = { type: 'contains', filter: quickFilterRef.current };
         }
         const res = await filterCars(body)
-        console.log(res);
-
         params.successCallback(res.rows, res.lastRow);
       } catch {
         params.failCallback();
@@ -161,18 +157,16 @@ const DataGrid: React.FC = () => {
   );
 
   const onFirstDataRendered = useCallback(
-    (event: any) => {
+    (event: FirstDataRenderedEvent) => {
       const api = event.api;
       const savedFilterModel = loadState(STORAGE_KEYS.FILTER_MODEL, {});
-      if (Object.keys(savedFilterModel).length > 0) {
-        console.log('Restoring filter model:', savedFilterModel);
-        api.setFilterModel(savedFilterModel);
+      if (Object.keys(savedFilterModel as Record<string, unknown>).length > 0) {
+        api.setFilterModel(savedFilterModel as Record<string, unknown>);
       }
-      const savedSortModel = loadState(STORAGE_KEYS.SORT_MODEL, []);
+      const savedSortModel = loadState(STORAGE_KEYS.SORT_MODEL, []) as SortModelItem[];
       if (savedSortModel.length > 0) {
-        console.log('Restoring sort model:', savedSortModel);
         api.applyColumnState({
-          state: savedSortModel.map((sort: any) => ({
+          state: savedSortModel.map((sort: SortModelItem) => ({
             colId: sort.colId,
             sort: sort.sort
           })),
@@ -180,7 +174,7 @@ const DataGrid: React.FC = () => {
         });
       }
     },
-    [loadState, saveState]
+    [loadState]
   );
 
   const onFilterChanged = useCallback(() => {
@@ -193,8 +187,8 @@ const DataGrid: React.FC = () => {
   const onSortChanged = useCallback(() => {
     if (gridRef.current?.api) {
       const sortModel = gridRef.current.api.getColumnState()
-        .filter((col: any) => col.sort)
-        .map((col: any) => ({ colId: col.colId, sort: col.sort }));
+        .filter((col: ColumnState) => col.sort)
+        .map((col: ColumnState) => ({ colId: col.colId, sort: col.sort }));
       saveState(STORAGE_KEYS.SORT_MODEL, sortModel);
     }
   }, [saveState]);

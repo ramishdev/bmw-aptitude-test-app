@@ -189,7 +189,6 @@ const snakeCase = (str: string) =>
 export const search = async (filter: FilterModel, sort: SortModel[], start: number, end: number) => {
   const { sql: whereSql, params } = buildWhereClause(filter);
   const orderSql = buildOrderClause(sort);
-  console.log(whereSql, params);
 
   const [countRows] = await pool.execute<CountResult[]>(
     `SELECT COUNT(*) as total FROM cars WHERE 1=1 ${whereSql}`,

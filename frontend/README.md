@@ -67,7 +67,7 @@ The main table that displays all the data. It's designed to be generic:
 - **Infinite Scrolling**: Loads data as you scroll
 - **Smart Search**: Type in the search box and it finds entity across all fields
 - **Column Filters**: Each column has its own filter for precise searching
-- **Smooth Sorting**: Click any column header to sort
+- **Sorting**: Click any column header to sort
 - **Responsive**: Adapts to your screen size automatically
 
 ### Performance Optimizations
